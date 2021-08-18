@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img id="img-of-the-day" width="500px" height="500px">
+<script>
+    let query = "https://api.nasa.gov/planetary/apod?api_key=d0SXQl2xNOehiGunvtokbAXbl7ytRlT0i28JlOYq";
+    let request = new XMLHttpRequest();
+    request.open('GET', query);
+    request.onload = function () {
+        if (request.status === 200) {
+            let response = JSON.parse(request.responseText);
+            document.getElementById('img-of-the-day').setAttribute('src', response.url);
+        }
+    };
+    request.send();
+</script>
+<form action="/commit" th:object="${list}" method="post">
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>author:</td>
+            <td><input placeholder="nhập author" name="author"></td>
+        </tr>
+        <tr>
+            <td>feedBack:</td>
+            <td><textarea placeholder="nhập feedBack" name="feedBack" rows="4" cols="50"></textarea></td>
+        </tr>
+        <tr>
+            <td>Like</td>
+            <td><input type="button" name="like"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-success">comment</button>
+</form>
+</body>
+</html>
